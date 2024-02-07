@@ -1,10 +1,10 @@
 package org.marcus;
+
 import net.spy.memcached.AddrUtil;
 import net.spy.memcached.MemcachedClient;
-import java.io.IOException;
+
 import java.net.ConnectException;
 import java.net.InetSocketAddress;
-import java.util.Map;
 import java.util.UUID;
 
 public class Main {

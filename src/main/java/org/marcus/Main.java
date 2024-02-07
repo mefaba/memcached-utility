@@ -31,10 +31,7 @@ public class Main {
             }else{
                 System.out.println("Connection failed.");
             }
-            // Printing stats
-            for (Map.Entry<String, String> stat : stats.entrySet()) {
-                System.out.println("  " + stat.getKey() + ": " + stat.getValue());
-            }
+
             memcachedClient.shutdown();
         }
         catch (IOException e){

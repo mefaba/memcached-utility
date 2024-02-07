@@ -5,6 +5,7 @@ import net.spy.memcached.MemcachedClient;
 
 import java.net.ConnectException;
 import java.net.InetSocketAddress;
+import java.util.Map;
 import java.util.UUID;
 
 public class Main {
@@ -28,6 +29,11 @@ public class Main {
             InetSocketAddress address = AddrUtil.getAddresses(args[0]).get(0);
             // Creating MemcachedClient with the specified address
             memcachedClient = new MemcachedClient(address);
+
+            Map<String, String> stats = memcachedClient.getStats().get(address);
+            if(stats == null || stats.isEmpty()){
+                throw  new ConnectException();
+            }
             // Perform a test operation (set a value)
             memcachedClient.set(String.valueOf(uuid), 900, "testValue");
 

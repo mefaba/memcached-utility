@@ -1,8 +1,8 @@
 package org.marcus;
+import net.spy.memcached.AddrUtil;
 import net.spy.memcached.MemcachedClient;
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.SocketAddress;
 import java.util.Map;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -19,18 +19,32 @@ public class Main {
             System.err.println("Invalid argument format. Please use <hostname:port>.");
             System.exit(1);
         }
+        try{
+            //test connection
+            InetSocketAddress address = AddrUtil.getAddresses(args[0]).get(0);
+            // Creating MemcachedClient with the specified address
+            MemcachedClient memcachedClient = new MemcachedClient(address);
+            Map<String, String> stats = memcachedClient.getStats().get(address);
+            int pid = Integer.parseInt(stats.get("pid"));
+            if(stats.containsKey("pid") && pid>0){
+                System.out.println("Connection to Memcached established successfully!");
+            }else{
+                System.out.println("Connection failed.");
+            }
+            // Printing stats
+            for (Map.Entry<String, String> stat : stats.entrySet()) {
+                System.out.println("  " + stat.getKey() + ": " + stat.getValue());
+            }
+            memcachedClient.shutdown();
+        }
+        catch (IOException e){
+            System.err.println("Failed to establish connection to Memcached: " + e.getMessage());
 
-        String hostname = parts[0];
-        int port = Integer.parseInt(parts[1]);
+        }
 
-        // Creating InetSocketAddress
-        InetSocketAddress address = new InetSocketAddress(hostname, port);
 
-        // Creating MemcachedClient with the specified address
-        MemcachedClient memcachedClient = new MemcachedClient(address);
 
-        //test connection
-        Map<SocketAddress, Map<String, String>> stats = memcachedClient.getStats();
-        System.out.println("Connection successful!");
+
+
     }
 }

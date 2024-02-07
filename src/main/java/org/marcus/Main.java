@@ -10,7 +10,6 @@ import java.util.UUID;
 public class Main {
     public static void main(String[] args) {
         if (args.length < 1) {
-            //TODO
             System.err.println("memcacheUtility.exe <hostname:port>");
             System.err.println("Example: memcacheUtility.exe localhost:11211");
             System.exit(1);

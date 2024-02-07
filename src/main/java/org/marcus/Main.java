@@ -34,7 +34,7 @@ public class Main {
             String recievedValue = (String)memcachedClient.get(String.valueOf(uuid));
             if(!recievedValue.equals("testValue"))
             {
-                throw new ConnectException("Failed to establish connection");
+                throw new ConnectException();
             }
             System.out.println("Connection to Memcached established successfully!");
 

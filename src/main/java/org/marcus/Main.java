@@ -8,7 +8,7 @@ import java.util.Map;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         if (args.length < 1) {
             System.err.println("Usage: java Main <hostname:port>");
             System.exit(1);
@@ -36,12 +36,6 @@ public class Main {
         }
         catch (IOException e){
             System.err.println("Failed to establish connection to Memcached: " + e.getMessage());
-
         }
-
-
-
-
-
     }
 }

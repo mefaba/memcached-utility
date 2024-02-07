@@ -10,7 +10,7 @@ import java.util.UUID;
 public class Main {
     public static void main(String[] args) {
         if (args.length < 1) {
-            System.err.println("memcacheUtility.exe <hostname:port>");
+            System.err.println("Invalid argument format. Please use <hostname:port>.");
             System.err.println("Example: memcacheUtility.exe localhost:11211");
             System.exit(1);
         }
@@ -20,12 +20,14 @@ public class Main {
             System.err.println("Invalid argument format. Please use <hostname:port>.");
             System.exit(1);
         }
+
+        MemcachedClient memcachedClient = null;
         try{
             UUID uuid = UUID.randomUUID();
             //test connection
             InetSocketAddress address = AddrUtil.getAddresses(args[0]).get(0);
             // Creating MemcachedClient with the specified address
-            MemcachedClient memcachedClient = new MemcachedClient(address);
+            memcachedClient = new MemcachedClient(address);
             // Perform a test operation (set a value)
             memcachedClient.set(String.valueOf(uuid), 900, "testValue");
 
@@ -43,6 +45,14 @@ public class Main {
         catch (Exception e){
             System.err.println("Failed to establish connection: ");
             e.printStackTrace();
+        }
+        finally {
+            // Close the client
+            if(memcachedClient != null)
+            {
+                memcachedClient.shutdown();
+            }
+
         }
     }
 }

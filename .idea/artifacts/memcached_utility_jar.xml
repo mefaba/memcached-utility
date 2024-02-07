@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="memcached-utility:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/memcached_utility_jar</output-path>
+    <root id="archive" name="memcached-utility.jar">
+      <element id="module-output" name="memcached-utility" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/net/spy/spymemcached/2.12.3/spymemcached-2.12.3.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
